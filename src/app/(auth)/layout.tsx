@@ -5,11 +5,7 @@ import { onAuthChanged } from "@/utils/firebase/authService";
 import { User } from "firebase/auth";
 import { useEffect, useState } from "react";
 
-interface LayoutProps {
-  children: React.ReactDOM;
-}
-
-export default function Layout({ children }: LayoutProps) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>();
   const [loading, setLoading] = useState(true);
 
