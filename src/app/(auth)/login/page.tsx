@@ -20,7 +20,7 @@ export default function Login() {
 
       console.log(response);
     } catch (err) {
-      alert("deu erro aqui");
+      alert("Usuário ou senha inválido.");
     }
   }
 

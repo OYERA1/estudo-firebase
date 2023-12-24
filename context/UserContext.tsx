@@ -9,15 +9,11 @@ type UserContextProps = {
 };
 
 type UserContextType = {
-  isOpenModal: boolean;
-  setIsOpenModal: (newState: boolean) => void;
   user: User | null;
   setUser: (newState: User) => void;
 };
 
 const initialValue = {
-  isOpenModal: false,
-  setIsOpenModal: () => {},
   user: null,
   setUser: () => {},
 };
@@ -25,7 +21,6 @@ const initialValue = {
 export const UserContext = createContext<UserContextType>(initialValue);
 
 export const UserContextProvider = ({ children }: UserContextProps) => {
-  const [isOpenModal, setIsOpenModal] = useState(initialValue.isOpenModal);
   const [user, setUser] = useState<User | null>(initialValue.user);
 
   useEffect(() => {
@@ -42,7 +37,7 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
 
   return (
     <UserContext.Provider
-      value={{ isOpenModal, setIsOpenModal, user, setUser }}
+      value={{ user, setUser }}
     >
       {children}
     </UserContext.Provider>
