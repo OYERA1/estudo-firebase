@@ -4,9 +4,13 @@ import MyButton from "@/src/components/button/page";
 import MyForm from "@/src/components/form/page";
 import MyInput from "@/src/components/inputs/page";
 import Link from "next/link";
-import { logout, register } from "@/utils/firebase/authService";
-import { useRouter } from "next/navigation";
-import { FormEvent, useState, useEffect } from "react";
+import { register } from "@/utils/firebase/authService";
+import { FormEvent, useState } from "react";
+import { User } from "firebase/auth";
+
+interface RegisterProps {
+  onRegisterSuccess: (user: User) => void;
+}
 
 export default function Register() {
   const [newUser, setNewUser] = useState({
@@ -15,25 +19,18 @@ export default function Register() {
     password: "",
   });
 
-  const { push } = useRouter();
-
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
     try {
       const user = await register(
         newUser.email,
         newUser.password,
         newUser.name
       );
-      if (user) {
-        alert(` Usuario: ${newUser.name} registrado com sucesso!`);
 
-        window.location.reload();
-      }
+      console.log(user);
     } catch (error) {
       alert(error);
-      console.log(error);
     }
   }
 
@@ -71,14 +68,6 @@ export default function Register() {
             placeholder="Insira sua senha"
             onChange={handleInputChange}
           />
-          {/* <MyInput
-            label="Senha novamente"
-            showPasswordToggle
-            type="password"
-            id={"password"}
-            placeholder="Insira sua senha"
-            onChange={handleInputChange}
-          /> */}
         </div>
         <MyButton>Cadastrar</MyButton>
         <div className="flex justify-around mt-6">

@@ -27,8 +27,8 @@ export async function register(email: string, password: string, name: string) {
     const user = userCredential.user;
 
     await updateProfile(user, { displayName: name });
-
-    return user;
+    console.log(user.displayName);
+    return console.log("antes"), user, console.log(user, "depois");
   } catch (e) {
     throw e;
   }

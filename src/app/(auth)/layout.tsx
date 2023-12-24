@@ -1,37 +1,22 @@
 "use client";
 
+import { UserContext } from "@/context/UserContext";
 import Loggedin from "@/src/components/loggedin/page";
-import { onAuthChanged } from "@/utils/firebase/authService";
-import { User } from "firebase/auth";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useContext, useEffect, useState } from "react";
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 export default function Layout({ children }: LayoutProps) {
-  const [user, setUser] = useState<User | null>();
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    function unsubscribe() {
-      return onAuthChanged((authUser) => {
-        setUser(authUser);
-        setLoading(false);
-      });
-    }
-
-    return unsubscribe();
-  }, []);
-
-  if (loading) {
-    // Aguarde até que o usuário seja carregado antes de renderizar o conteúdo
-    return <div className="flex items-center">Loading...</div>;
-  }
+  const { user } = useContext(UserContext);
+  const router = useRouter();
 
   if (user) {
-    return <Loggedin user={user} />;
+    router.push("/profile");
   }
 
+  // Se o usuário não está logado, renderiza o conteúdo normal
   return <>{children}</>;
 }

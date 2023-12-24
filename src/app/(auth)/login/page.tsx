@@ -4,11 +4,8 @@ import MyButton from "@/src/components/button/page";
 import MyForm from "@/src/components/form/page";
 import Link from "next/link";
 import MyInput from "@/src/components/inputs/page";
-import { FormEvent, useState, useEffect } from "react";
-import { User, onAuthStateChanged } from "firebase/auth";
-import { login, logout, onAuthChanged } from "@/utils/firebase/authService";
-import Loggedin from "@/src/components/loggedin/page";
-import { auth } from "@/utils/firebase/firebaseService";
+import { FormEvent, useState } from "react";
+import { login } from "@/utils/firebase/authService";
 
 export default function Login() {
   const [form, setForm] = useState({

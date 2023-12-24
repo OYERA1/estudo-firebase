@@ -1,21 +1,19 @@
+import { useContext, useEffect, useState } from "react";
 import MyButton from "../button/page";
-import { User } from "firebase/auth";
 import { deleteUsers, logout } from "@/utils/firebase/authService";
+import { UserContext } from "@/context/UserContext";
 
-interface LoggedInPorps {
-  user: User | null;
-}
+export default function Loggedin() {
+  const { user } = useContext(UserContext);
+  const [displayName, setDisplayName] = useState(null);
 
-export default function Loggedin({ user }: LoggedInPorps) {
   return (
     <main className="flex flex-col items-center mt-40">
       <div className="flex gap-3">
-        <h1 className="break-normal w-25">
-          {user ? user.displayName : null} você já está logado!
-        </h1>
+        <h1 className="break-normal w-25">{`${displayName} você já está logado!`}</h1>
         <button
           onClick={() => deleteUsers(user)}
-          className="w-20  break-words rounded bg-zinc-50 text-black p-2 h-full"
+          className="w-20 break-words rounded bg-zinc-50 text-black p-2 h-full"
         >
           Deletar conta?
         </button>
